@@ -452,7 +452,7 @@ html, body {
 
 .lk1, .lk2 {
     text-decoration: none;
-    font-family: ChenYuluoyan;
+    font-family: 'ChenYuluoyan';
     color: black; /* #fff */
     transition: all 0.5s;
 }
