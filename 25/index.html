@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>致 25 歲的思思</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Kalam', '微軟正黑體', cursive;
+            background: #f4f1e8;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(139, 69, 19, 0.02) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(160, 82, 45, 0.02) 0%, transparent 50%);
+            color: #2c2416;
+            line-height: 1.9;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .letter-container {
+            max-width: 700px;
+            margin: 40px auto;
+            background: #fefcf8;
+            box-shadow: 
+                0 0 20px rgba(0,0,0,0.1),
+                inset 0 0 50px rgba(139, 69, 19, 0.03);
+            position: relative;
+            transform: rotate(-0.5deg);
+            animation: paperFloat 6s ease-in-out infinite;
+        }
+
+        .letter-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    transparent,
+                    transparent 24px,
+                    rgba(139, 69, 19, 0.08) 24px,
+                    rgba(139, 69, 19, 0.08) 25px
+                );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .letter-hole {
+            position: absolute;
+            left: 30px;
+            top: 50px;
+            width: 8px;
+            height: 8px;
+            background: #f4f1e8;
+            border-radius: 50%;
+            box-shadow: 
+                0 50px 0 #f4f1e8,
+                0 100px 0 #f4f1e8,
+                0 150px 0 #f4f1e8,
+                0 200px 0 #f4f1e8,
+                0 250px 0 #f4f1e8,
+                0 300px 0 #f4f1e8;
+            z-index: 2;
+        }
+
+        .letter-content {
+            padding: 80px 60px 60px 80px;
+            position: relative;
+            z-index: 3;
+        }
+
+        .date-header {
+            text-align: right;
+            margin-bottom: 40px;
+            font-size: 1rem;
+            color: #5a4a3a;
+            transform: rotate(0.3deg);
+            opacity: 0;
+            animation: handwritingAppear 1s ease-out 0.5s forwards;
+        }
+
+        .letter-title {
+            font-size: 1.8rem;
+            color: #2c2416;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 400;
+            transform: rotate(-0.2deg);
+            opacity: 0;
+            animation: handwritingAppear 1s ease-out 1s forwards;
+        }
+
+        .greeting {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            color: #3a2f1f;
+            transform: rotate(0.1deg);
+            opacity: 0;
+            animation: handwritingAppear 1s ease-out 1.5s forwards;
+        }
+
+        .paragraph {
+            margin-bottom: 25px;
+            font-size: 1.05rem;
+            color: #2c2416;
+            text-align: justify;
+            text-indent: 2em;
+            opacity: 0;
+            animation: handwritingAppear 1s ease-out forwards;
+            position: relative;
+        }
+
+        .paragraph:nth-of-type(1) { animation-delay: 2s; transform: rotate(-0.1deg); }
+        .paragraph:nth-of-type(2) { animation-delay: 2.3s; transform: rotate(0.05deg); }
+        .paragraph:nth-of-type(3) { animation-delay: 2.6s; transform: rotate(-0.05deg); }
+        .paragraph:nth-of-type(4) { animation-delay: 2.9s; transform: rotate(0.1deg); }
+        .paragraph:nth-of-type(5) { animation-delay: 3.2s; transform: rotate(-0.08deg); }
+
+        .handwritten-note {
+            background: rgba(255, 248, 220, 0.7);
+            border: 1px dashed #d4a574;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px 0;
+            transform: rotate(0.8deg);
+            font-size: 0.95rem;
+            color: #4a3c2a;
+            position: relative;
+            opacity: 0;
+            animation: handwritingAppear 1s ease-out 3.5s forwards;
+        }
+
+        .handwritten-note::before {
+            content: '📎';
+            position: absolute;
+            top: -10px;
+            right: 15px;
+            font-size: 1.5rem;
+            transform: rotate(15deg);
+        }
+
+        .memory-list {
+            list-style: none;
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(139, 69, 19, 0.05);
+            border-left: 3px solid #d4a574;
+            transform: rotate(-0.3deg);
+            opacity: 0;
+            animation: handwritingAppear 1s ease-out 4s forwards;
+        }
+
+        .memory-item {
+            margin: 15px 0;
+            padding-left: 20px;
+            position: relative;
+            color: #3a2f1f;
+            font-size: 1rem;
+        }
+
+        .memory-item::before {
+            content: '✧';
+            position: absolute;
+            left: 0;
+            color: #d4a574;
+            font-size: 1.1rem;
+        }
+
+        .quote-section {
+            text-align: center;
+            font-style: italic;
+            font-size: 1.15rem;
+            color: #5a4a3a;
+            margin: 40px 0;
+            padding: 25px;
+            background: linear-gradient(45deg, rgba(255,255,255,0.3), rgba(255,248,220,0.3));
+            border-radius: 10px;
+            transform: rotate(0.2deg);
+            position: relative;
+            opacity: 0;
+            animation: handwritingAppear 1s ease-out 4.5s forwards;
+        }
+
+        .quote-section::before,
+        .quote-section::after {
+            content: '"';
+            font-size: 3rem;
+            color: #d4a574;
+            position: absolute;
+            opacity: 0.4;
+        }
+
+        .quote-section::before {
+            top: -5px;
+            left: 15px;
+        }
+
+        .quote-section::after {
+            bottom: -25px;
+            right: 15px;
+            transform: rotate(180deg);
+        }
+
+        .wishes-section {
+            margin: 35px 0;
+            opacity: 0;
+            animation: handwritingAppear 1s ease-out 5s forwards;
+        }
+
+        .wishes-title {
+            font-size: 1.3rem;
+            color: #3a2f1f;
+            margin-bottom: 20px;
+            text-decoration: underline;
+            text-decoration-color: #d4a574;
+            text-underline-offset: 5px;
+            transform: rotate(-0.1deg);
+        }
+
+        .signature-section {
+            margin-top: 50px;
+            text-align: right;
+            opacity: 0;
+            animation: handwritingAppear 1s ease-out 5.5s forwards;
+        }
+
+        .signature {
+            font-size: 1.1rem;
+            color: #4a3c2a;
+            margin: 10px 0;
+            transform: rotate(0.5deg);
+        }
+
+        .signature.main {
+            font-size: 1.3rem;
+            color: #2c2416;
+            font-weight: 400;
+            margin-top: 20px;
+        }
+
+        .postscript {
+            font-size: 0.9rem;
+            color: #6b5b4a;
+            margin: 8px 0;
+            transform: rotate(-0.2deg);
+        }
+
+        .ink-stain {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, rgba(72, 61, 139, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .ink-stain-1 { top: 200px; right: 100px; transform: rotate(45deg); }
+        .ink-stain-2 { top: 400px; left: 90px; width: 15px; height: 15px; }
+        .ink-stain-3 { bottom: 150px; right: 150px; width: 12px; height: 12px; }
+
+        .music-note {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #fefcf8;
+            border: 2px solid #d4a574;
+            border-radius: 50%;
+            width: 55px;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.3rem;
+            color: #d4a574;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transform: rotate(-5deg);
+        }
+
+        .music-note:hover {
+            transform: rotate(0deg) scale(1.1);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .doodle {
+            position: absolute;
+            opacity: 0.3;
+            color: #d4a574;
+            font-size: 1.2rem;
+            z-index: 2;
+        }
+
+        .doodle-1 { top: 120px; right: 40px; transform: rotate(15deg); }
+        .doodle-2 { top: 300px; left: 40px; transform: rotate(-20deg); }
+        .doodle-3 { bottom: 200px; right: 60px; transform: rotate(25deg); }
+
+        @keyframes handwritingAppear {
+            from {
+                opacity: 0;
+                transform: translateY(10px) rotate(var(--rotation, 0deg));
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) rotate(var(--rotation, 0deg));
+            }
+        }
+
+        @keyframes paperFloat {
+            0%, 100% {
+                transform: rotate(-0.5deg) translateY(0px);
+            }
+            50% {
+                transform: rotate(-0.3deg) translateY(-2px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .letter-container {
+                margin: 20px;
+                transform: rotate(0deg);
+            }
+            
+            .letter-content {
+                padding: 60px 30px 40px 50px;
+            }
+            
+            .letter-hole {
+                left: 20px;
+            }
+            
+            .paragraph {
+                font-size: 1rem;
+                text-indent: 1.5em;
+            }
+            
+            .letter-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* 添加一些手寫感的不規則效果 */
+        .handwriting-irregular {
+            position: relative;
+        }
+
+        .handwriting-irregular::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right, 
+                transparent 0%, 
+                #2c2416 20%, 
+                #2c2416 40%, 
+                transparent 45%, 
+                #2c2416 55%, 
+                #2c2416 85%, 
+                transparent 100%);
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="letter-container">
+        <!-- 信紙的打孔 -->
+        <div class="letter-hole"></div>
+        
+        <!-- 墨水漬 -->
+        <div class="ink-stain ink-stain-1"></div>
+        <div class="ink-stain ink-stain-2"></div>
+        <div class="ink-stain ink-stain-3"></div>
+        
+        <!-- 手繪小裝飾 -->
+        <div class="doodle doodle-1">❀</div>
+        <div class="doodle doodle-2">♡</div>
+        <div class="doodle doodle-3">✧</div>
+        
+        <div class="letter-content">
+            <div class="date-header" id="letterDate"></div>
+            
+            <h1 class="letter-title">致 25 歲的思思</h1>
+            
+            <div class="greeting">思思：</div>
+            
+            <div class="paragraph">
+                今天是你的生日，祝福妳生日快樂。其實提筆的時候有點緊張，不知道該用什麼樣的話語來表達心中對你的祝福，但我想，最真誠的文字或許就是最好的禮物。
+            </div>
+            
+            <div class="paragraph">
+                曾和你分享過，親密關係對我而言是那些，即使相隔千里、無法見面的日子，也能相互成為彼此的力量，是那些舉步維艱的時刻，只要想起對方，就能又生出幾分勇氣前進的東西。你就是這樣的存在。認識你真的是一件很幸運的事。在你身上我看見了很多美好的特質：善良、有趣、真實，還有那種對生活的熱愛以及累累卻又對夢想的堅持。每次和你聊天，都會讓我覺得這個世界變得更有意思一些。
+            </div>
+            
+            <div class="handwritten-note">
+                <strong>想對你說的話：</strong><br>
+                希望你知道，你是一個很特別的人。不管是你看世界的角度，還是你處理事情的方式，都有著屬於你自己的溫度和色彩。
+            </div>
+            
+            <ul class="memory-list">
+                <li class="memory-item">那些一起度過的美好時光</li>
+                <li class="memory-item">你分享給我的有趣想法和故事</li>
+                <li class="memory-item">一起笑到肚子痛的搞笑瞬間</li>
+                <li class="memory-item">你給我的溫暖和支持</li>
+                <li class="memory-item">所有平凡卻珍貴的日常片段</li>
+            </ul>
+            
+            <div class="paragraph">
+                希望在新的一歲裡，你能繼續做你自己，繼續用你的方式去愛這個世界。遇到困難的時候別忘了，你並不孤單，總有人在默默支持著你、關心著你。
+            </div>
+            
+            <div class="quote-section">
+                願你永遠保持好奇心，願你常保對生活的熱愛<br>
+                願你在被平淡生活包圍的時候，能因為這段關係而感到不那麼平淡<br>
+            </div>
+            
+            <div class="paragraph">
+                生活有時候會讓人感到疲憊，但妳一直很勇敢地走在自己的路上。願新的一歲裡，妳被更多溫柔包圍，擁有更多快樂與喜悅，能夠更自在的表達情緒。 P.S 真的不行的時候也請記得按山羊喔
+            </div>
+            
+            <div class="wishes-section">
+                <div class="wishes-title">我的生日祝福：</div>
+                <ul class="memory-list">
+                    <li class="memory-item">願你每天醒來都對新的一天充滿期待</li>
+                    <li class="memory-item">願你身邊永遠有愛你的人陪伴</li>
+                    <li class="memory-item">願你的笑容永遠如今天般燦爛</li>
+                    <li class="memory-item">願你的夢想都能一步步實現</li>
+                    <li class="memory-item">願你永遠保持那顆善良而勇敢的心</li>
+                </ul>
+            </div>
+            
+            <div class="paragraph">
+                最後想說，謝謝你成為我生命中如此重要的一個人。能夠認識你、陪伴你、見證你的成長，真的是我很珍貴的回憶。希望在未來的日子裡，我們還能一起創造更多美好的時光。
+            </div>
+            
+            <div class="signature-section">
+                <div class="postscript">P.S. 這封信雖然簡單，但字字句句都是真心話</div>
+                <div class="postscript">P.S.2 記得點擊右下角的音符，有首歌想與你分享 ♪</div>
+                <div class="postscript">P.S.3 生日快樂！希望你喜歡這個小小的驚喜</div>
+                <br>
+                <div class="signature">生日快樂，親愛的思思</div>
+                <div class="signature main">— 君浩</div>
+                <div class="signature" id="signatureDate"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="music-note" onclick="toggleMusic()" title="有首歌想與你分享">♪</div>
+
+    <script>
+        // 設置固定日期為 8/10
+        function setDates() {
+            document.getElementById('letterDate').textContent = '2025年8月10日 星期日';
+            document.getElementById('signatureDate').textContent = '2025年8月10日';
+        }
+
+        setDates();
+
+        // 音樂控制
+        let musicPlaying = false;
+        function toggleMusic() {
+            const musicBtn = document.querySelector('.music-note');
+            
+            if (!musicPlaying) {
+                const musicUrl = 'https://open.spotify.com/track/1iwQdUngDyaxhq0s2PqVUx?si=760d2ce68e9d491e';
+                window.open(musicUrl, '_blank');
+                alert('🎵 想為你播放一首特別的歌\n\n「希望它能夠陪伴妳度過那些覺得孤獨的時刻」\n');
+                musicBtn.style.background = 'rgba(212, 165, 116, 0.2)';
+                musicBtn.style.borderColor = '#b8935e';
+                musicPlaying = true;
+            } else {
+                musicBtn.style.background = '#fefcf8';
+                musicBtn.style.borderColor = '#d4a574';
+            }
+            
+            musicPlaying = !musicPlaying;
+        }
+
+        // 添加一些隨機的手寫感效果
+        document.querySelectorAll('.paragraph').forEach((para, index) => {
+            const randomRotation = (Math.random() - 0.5) * 0.4;
+            para.style.setProperty('--rotation', `${randomRotation}deg`);
+        });
+
+        // 為記憶項目添加懸停效果
+        document.querySelectorAll('.memory-item').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.color = '#d4a574';
+                this.style.transform = 'translateX(3px) rotate(0.1deg)';
+                this.style.transition = 'all 0.3s ease';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.color = '#3a2f1f';
+                this.style.transform = 'translateX(0) rotate(0deg)';
+            });
+        });
+
+        // 模擬紙張微微晃動的效果
+        let mouseX = 0, mouseY = 0;
+        document.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+            mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+            
+            const letter = document.querySelector('.letter-container');
+            const offsetX = mouseX * 0.5;
+            const offsetY = mouseY * 0.5;
+            const rotation = -0.5 + mouseX * 0.2;
+            
+            letter.style.transform = `translate(${offsetX}px, ${offsetY}px) rotate(${rotation}deg)`;
+        });
+    </script>
+</body>
+</html>
